@@ -12,12 +12,12 @@ let errorMessage = document.getElementById("error-message"); // Récupérer l'é
 formulaire.addEventListener("submit", function(event) {
     event.preventDefault(); // Empêche le formulaire de se soumettre normalement
 
-    // Récupérer les valeurs saisies par l'utilisateur
+    // Récupérer et convertir les valeurs saisies par l'utilisateur
     let prenom = prenomInput.value.charAt(0).toUpperCase() + prenomInput.value.slice(1).toLowerCase();
     let nom = nomInput.value.charAt(0).toUpperCase() + nomInput.value.slice(1).toLowerCase();
     let commentaire = commentaireInput.value;
 
-// Vérifier si les champs sont vides
+    // Vérifier si les champs sont vides
     if (prenom === "" || nom === "" || commentaire === "") {
     errorMessage.style.display = "block"; // Afficher le message d'erreur
     return; // Arrêter l'exécution du code
@@ -26,10 +26,11 @@ formulaire.addEventListener("submit", function(event) {
     errorMessage.style.display = "none"; // Masquer le message d'erreur
     }
 
-// Créer un élément <h3> pour le nom complet
+    // Créer un élément <h3> pour le nom complet
     let h3Element = document.createElement("h3");
     h3Element.textContent = `${prenom} ${nom}`;
-// Appliquer le style "font-weight: 500" à l'élément <h3>
+
+    // Appliquer le style "font-weight: 500" à l'élément <h3>
     h3Element.style.fontWeight = "500";
     h3Element.style.fontSize = "inherit";
     h3Element.style.color = "rgb(17, 24, 39)";
@@ -38,26 +39,36 @@ formulaire.addEventListener("submit", function(event) {
     let brElement = document.createElement("br");
 
 
-// Créer un élément <p> pour le commentaire
+    // Créer un élément <p> pour le commentaire
     let pElement = document.createElement("p");
     pElement.textContent = commentaire;
-    pElement.style.color = "rgb(107, 114, 128)";
-    pElement.style.fontSize = "0.875rem";
-    pElement.style.lineHeight = "1.7142857";
+   
 
-    // Créer un élément <br> pour le saut de ligne
-let BrElement1 = document.createElement("br"); // 1er saut de ligne
-let BrElement2 = document.createElement("br"); // 2éme saut de ligne
+    // Style : Créer un élément <div> pour englober le nom et le commentaire
+    let divElement = document.createElement("div");
+    divElement.className = "flex space-x-4 text-sm text-gray-500";
+
+    // Créer un sous-div pour le contenu
+    let contentDiv = document.createElement("div");
+    contentDiv.className = "flex-1 py-10 border-t border-gray-200";
 
 
-    // Ajouter les éléments au div avec l'id "comment-list"
+    // Ajouter le <h3> et le <p> au sous-div
+    contentDiv.appendChild(h3Element);
+    contentDiv.appendChild(brElement); // Ajouter le saut de ligne
+    contentDiv.appendChild(pElement);
+
+
+    // Ajouter le sous-div au div principal
+    divElement.appendChild(contentDiv);
+
+
+    // Ajouter le div principal au div avec l'id "comment-list"
     let commentList = document.getElementById("comment-list");
-    commentList.appendChild(h3Element);
-    commentList.appendChild(brElement); // Ajouter le saut de ligne
-    commentList.appendChild(pElement);
-    commentList.appendChild(BrElement1); // Ajouter ler saut de ligne
-    commentList.appendChild(BrElement2); // Ajouter 2éme saut de ligne
-     
+    commentList.appendChild(divElement);
+
+
     // Réinitialiser les champs du formulaire
-     formulaire.reset();
-    });
+    formulaire.reset();
+}
+);
