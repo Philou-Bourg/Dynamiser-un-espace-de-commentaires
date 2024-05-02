@@ -26,47 +26,42 @@ formulaire.addEventListener("submit", function(event) {
     errorMessage.style.display = "none"; // Masquer le message d'erreur
     }
 
-    // Créer un élément <h3> pour le nom complet
+    // Je crée un 1er élément <div> pour le nom complet et le commentaire et j'applique le style "flex space"
+    let flexSpaceDiv = document.createElement("div");
+    flexSpaceDiv.className = "flex space-x-4 text-sm text-gray-500";
+
+    // Je crée un 2éme élément <div> pour le nom complet et le commentaire  et j'applique le style "flex 1"
+    let Flex1Div = document.createElement("div");
+    Flex1Div.className = "flex-1 py-10";
+
+    // Je crée un titre h3 avec le nom complet (nom et prenom) et j'applique le style définie par la classe
     let h3Element = document.createElement("h3");
     h3Element.textContent = `${prenom} ${nom}`;
+    h3Element.className = "font-medium text-gray-900";
+    
+    // Je crée un 3éme élément <div> pour le commentaire et j'applique le style "prose"
+    let ProseDiv = document.createElement("div");
+    ProseDiv.className = "prose prose-sm mt-4 max-w-none text-gray-500";
 
-    // Appliquer le style "font-weight: 500" à l'élément <h3>
-    h3Element.style.fontWeight = "500";
-    h3Element.style.fontSize = "inherit";
-    h3Element.style.color = "rgb(17, 24, 39)";
-
-    // Créer un élément <br> pour le saut de ligne
-    let brElement = document.createElement("br");
-
-
-    // Créer un élément <p> pour le commentaire
+    // Je crée un paragraphe qui va contenir le champs commentaire
     let pElement = document.createElement("p");
     pElement.textContent = commentaire;
-   
 
-    // Style : Créer un élément <div> pour englober le nom et le commentaire
-    let divElement = document.createElement("div");
-    divElement.className = "flex space-x-4 text-sm text-gray-500";
+    // Dans cette partie, je rattache les éléments afin de respecter l'architecture du Html (je pars du pied pour remonter à la tête)
 
-    // Créer un sous-div pour le contenu
-    let contentDiv = document.createElement("div");
-    contentDiv.className = "flex-1 py-10 border-t border-gray-200";
+    // Ajouter le paragraphe au div "prose"
+    ProseDiv.appendChild(pElement);
 
+    // Ajouter le h3 et le div "prose" au div "Flex1Div"
+    Flex1Div.appendChild(h3Element);
+    Flex1Div.appendChild(ProseDiv);
 
-    // Ajouter le <h3> et le <p> au sous-div
-    contentDiv.appendChild(h3Element);
-    contentDiv.appendChild(brElement); // Ajouter le saut de ligne
-    contentDiv.appendChild(pElement);
+    // Ajouter le div "Flex1Div" au div "flexSpaceDiv"
+    flexSpaceDiv.appendChild(Flex1Div);
 
-
-    // Ajouter le sous-div au div principal
-    divElement.appendChild(contentDiv);
-
-
-    // Ajouter le div principal au div avec l'id "comment-list"
-    let commentList = document.getElementById("comment-list");
-    commentList.appendChild(divElement);
-
+    // Ajouter le div "flexSpaceDiv" au div avec l'id "comment-list"
+    let commentListDiv = document.getElementById("comment-list");
+    commentListDiv.appendChild(flexSpaceDiv);
 
     // Réinitialiser les champs du formulaire
     formulaire.reset();
